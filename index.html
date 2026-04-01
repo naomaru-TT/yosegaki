@@ -264,17 +264,7 @@
   let editingKey = null;
   let editSelectedColor = 0;
 
-  function getMyIds() {
-    try { return JSON.parse(localStorage.getItem('yosegaki_my_ids') || '[]'); } catch { return []; }
-  }
-  function addMyId(id) {
-    const ids = getMyIds(); ids.push(id);
-    localStorage.setItem('yosegaki_my_ids', JSON.stringify(ids));
-  }
-  function isMyMessage(id) { return getMyIds().includes(id); }
-  function removeMyId(id) {
-    localStorage.setItem('yosegaki_my_ids', JSON.stringify(getMyIds().filter(x => x !== id)));
-  }
+
 
   (function autoStart() {
     const app = initializeApp(FIREBASE_CONFIG);
@@ -325,8 +315,7 @@
     const btn = document.getElementById('btn-post');
     btn.disabled = true; btn.textContent = '送信中…';
     try {
-      const newRef = await push(ref(db, 'messages'), { name, msg, colorIdx: selectedColor, ts: Date.now() });
-      addMyId(newRef.key);
+      await push(ref(db, 'messages'), { name, msg, colorIdx: selectedColor, ts: Date.now() });
       document.getElementById('inp-name').value = '';
       document.getElementById('inp-msg').value = '';
       document.getElementById('char-count').textContent = '0 / 120';
@@ -356,21 +345,18 @@
         el.style.background = c.bg;
         const d = new Date(m.ts);
         const timeStr = d.getHours() + ':' + String(d.getMinutes()).padStart(2, '0');
-        const isMine = isMyMessage(key);
         el.innerHTML = `
           <div class="note-msg" style="color:${c.text}">${escHtml(m.msg)}</div>
           <div>
             <div class="note-name" style="color:${c.text}">— ${escHtml(m.name)}</div>
             <div class="note-time" style="color:${c.text}">${timeStr}</div>
-            ${isMine ? `<div class="note-actions">
+            <div class="note-actions">
               <button class="note-btn note-btn-edit" style="color:${c.text}">編集</button>
               <button class="note-btn note-btn-delete">削除</button>
-            </div>` : ''}
+            </div>
           </div>`;
-        if (isMine) {
-          el.querySelector('.note-btn-edit').addEventListener('click', () => openEdit(key, m.msg, m.colorIdx || 0));
-          el.querySelector('.note-btn-delete').addEventListener('click', () => deleteMsg(key));
-        }
+        el.querySelector('.note-btn-edit').addEventListener('click', () => openEdit(key, m.msg, m.colorIdx || 0));
+        el.querySelector('.note-btn-delete').addEventListener('click', () => deleteMsg(key));
         grid.appendChild(el);
       });
     }, { onlyOnce: true });
@@ -402,7 +388,7 @@
     if (!confirm('このメッセージを削除しますか？')) return;
     try {
       await remove(ref(db, 'messages/' + key));
-      removeMyId(key); showToast('削除しました'); loadMessages();
+      showToast('削除しました'); loadMessages();
     } catch(e) { showToast('削除に失敗しました。'); }
   };
 
