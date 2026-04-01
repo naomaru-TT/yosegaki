@@ -390,8 +390,8 @@
     <div class="post-card">
       <h2>✏️ メッセージを書く</h2>
       <div class="field">
-        <label>お名前</label>
-        <input type="text" id="inp-name" placeholder="例：山田 太郎" maxlength="20">
+        <label>ニックネーム / イニシャル</label>
+        <input type="text" id="inp-name" placeholder="例：いわちゃん / T.N." maxlength="20">
       </div>
       <div class="field">
         <label>メッセージ <span class="char-count" id="char-count">0 / 120</span></label>
@@ -452,30 +452,31 @@
   let selectedColor = 0;
 
   // ── Setup ──
-  window.startApp = function() {
-    const apiKey = document.getElementById('cfg-apiKey').value.trim();
-    const authDomain = document.getElementById('cfg-authDomain').value.trim();
-    const dbUrl = document.getElementById('cfg-dbUrl').value.trim();
-    const projectId = document.getElementById('cfg-projectId').value.trim();
-    const errEl = document.getElementById('setup-error');
+  // Firebase設定を直接埋め込み（セットアップ画面をスキップ）
+  const FIREBASE_CONFIG = {
+    apiKey: "AIzaSyDe1f405ZFp0Z6B9pElfwttfnIigtUres4",
+    authDomain: "yosegaki-2f7e6.firebaseapp.com",
+    databaseURL: "https://yosegaki-2f7e6-default-rtdb.firebaseio.com",
+    projectId: "yosegaki-2f7e6"
+  };
 
-    if (!apiKey || !authDomain || !dbUrl || !projectId) {
-      errEl.style.display = 'block';
-      return;
-    }
-    errEl.style.display = 'none';
-
+  function autoStart() {
     try {
-      const app = initializeApp({ apiKey, authDomain, databaseURL: dbUrl, projectId });
+      const app = initializeApp(FIREBASE_CONFIG);
       db = getDatabase(app);
       document.getElementById('setup-screen').style.display = 'none';
       document.getElementById('app').style.display = 'block';
       initColors();
       loadMessages();
     } catch(e) {
-      errEl.textContent = 'Firebaseの接続に失敗しました。設定を確認してください。';
-      errEl.style.display = 'block';
+      console.error(e);
     }
+  }
+  autoStart();
+
+  window.startApp = function() {
+    // 手動起動用（フォールバック）
+    autoStart();
   };
 
   // ── Colors ──
