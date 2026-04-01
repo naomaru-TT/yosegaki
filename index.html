@@ -7,241 +7,76 @@
   <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #FFF9F0;
-      --surface: #FFFFFF;
-      --primary: #FF6B6B;
-      --primary-dark: #E05555;
-      --accent: #FFD93D;
-      --accent2: #6BCB77;
-      --accent3: #4D96FF;
-      --text: #2D2D2D;
-      --text-muted: #888;
-      --border: #EEE;
-      --radius: 16px;
+      --bg: #FFF9F0; --surface: #FFFFFF; --primary: #FF6B6B; --primary-dark: #E05555;
+      --text: #2D2D2D; --text-muted: #888; --border: #EEE; --radius: 16px;
       --shadow: 0 4px 24px rgba(0,0,0,0.08);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Zen Maru Gothic', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
-
-    /* ── SETUP SCREEN ── */
-    #setup-screen {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      background: linear-gradient(135deg, #FFF9F0 0%, #FFE8E8 100%);
-    }
-    .setup-card {
-      background: var(--surface);
-      border-radius: 24px;
-      padding: 2.5rem;
-      max-width: 540px;
-      width: 100%;
-      box-shadow: var(--shadow);
-    }
-    .setup-card h1 {
-      font-size: 1.6rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      color: var(--primary);
-    }
-    .setup-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.5rem; }
-    .steps { counter-reset: step; margin-bottom: 1.5rem; }
-    .step {
-      counter-increment: step;
-      display: flex;
-      gap: 1rem;
-      align-items: flex-start;
-      margin-bottom: 1.25rem;
-    }
-    .step::before {
-      content: counter(step);
-      min-width: 28px; height: 28px;
-      background: var(--primary);
-      color: #fff;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.85rem; font-weight: 700;
-      margin-top: 2px;
-    }
-    .step-content { flex: 1; }
-    .step-content strong { display: block; font-size: 0.95rem; margin-bottom: 4px; }
-    .step-content span { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
-    .step-content a { color: var(--accent3); text-decoration: none; }
-    .step-content a:hover { text-decoration: underline; }
-    .input-group { margin-bottom: 1rem; }
-    .input-group label { display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; color: var(--text-muted); }
-    .input-group input {
-      width: 100%; padding: 12px 16px;
-      border: 1.5px solid var(--border);
-      border-radius: 12px;
-      font-size: 0.95rem;
-      font-family: 'M PLUS Rounded 1c', sans-serif;
-      color: var(--text);
-      background: #FAFAFA;
-      transition: border-color 0.2s;
-    }
-    .input-group input:focus { outline: none; border-color: var(--primary); background: #fff; }
-    .btn-start {
-      width: 100%; padding: 14px;
-      background: var(--primary);
-      color: #fff;
-      border: none; border-radius: 12px;
-      font-size: 1rem; font-weight: 700;
-      font-family: 'Zen Maru Gothic', sans-serif;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
-    }
-    .btn-start:hover { background: var(--primary-dark); transform: translateY(-1px); }
-    .btn-start:active { transform: translateY(0); }
-    .error-msg { color: var(--primary); font-size: 0.85rem; margin-top: 0.5rem; display: none; }
-
-    /* ── MAIN APP ── */
-    #app { display: none; min-height: 100vh; }
-
-    /* Header */
+    body { font-family: 'Zen Maru Gothic', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
     .app-header {
-      background: var(--surface);
-      border-bottom: 2px solid var(--border);
-      padding: 1rem 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky; top: 0; z-index: 100;
+      background: var(--surface); border-bottom: 2px solid var(--border);
+      padding: 1rem 1.5rem; display: flex; align-items: center;
+      justify-content: space-between; position: sticky; top: 0; z-index: 100;
     }
     .app-title { font-size: 1.1rem; font-weight: 700; color: var(--primary); }
     .app-title span { font-size: 0.8rem; font-weight: 400; color: var(--text-muted); display: block; }
-
-    /* Tabs */
-    .tabs {
-      display: flex; gap: 6px;
-      background: #F0EDEA;
-      padding: 4px;
-      border-radius: 12px;
-    }
+    .tabs { display: flex; gap: 6px; background: #F0EDEA; padding: 4px; border-radius: 12px; }
     .tab-btn {
-      padding: 6px 14px;
-      border: none; border-radius: 8px;
-      font-size: 0.85rem; font-weight: 700;
-      font-family: 'Zen Maru Gothic', sans-serif;
-      cursor: pointer;
-      background: transparent;
-      color: var(--text-muted);
-      transition: all 0.2s;
+      padding: 6px 14px; border: none; border-radius: 8px; font-size: 0.85rem; font-weight: 700;
+      font-family: 'Zen Maru Gothic', sans-serif; cursor: pointer; background: transparent;
+      color: var(--text-muted); transition: all 0.2s;
     }
     .tab-btn.active { background: var(--surface); color: var(--text); box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-
     .tab-content { display: none; padding: 1.5rem; max-width: 900px; margin: 0 auto; }
     .tab-content.active { display: block; }
-
-    /* ── POST TAB ── */
     .post-card {
-      background: var(--surface);
-      border-radius: var(--radius);
-      padding: 2rem;
-      max-width: 520px;
-      margin: 0 auto;
-      box-shadow: var(--shadow);
+      background: var(--surface); border-radius: var(--radius); padding: 2rem;
+      max-width: 520px; margin: 0 auto; box-shadow: var(--shadow);
     }
     .post-card h2 { font-size: 1.2rem; margin-bottom: 1.5rem; }
     .field { margin-bottom: 1.25rem; }
     .field label { display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; color: var(--text-muted); }
     .field input, .field textarea {
-      width: 100%; padding: 12px 16px;
-      border: 1.5px solid var(--border);
-      border-radius: 12px;
-      font-size: 0.95rem;
-      font-family: 'Zen Maru Gothic', sans-serif;
-      color: var(--text);
-      background: #FAFAFA;
-      resize: vertical;
-      transition: border-color 0.2s;
+      width: 100%; padding: 12px 16px; border: 1.5px solid var(--border); border-radius: 12px;
+      font-size: 0.95rem; font-family: 'Zen Maru Gothic', sans-serif; color: var(--text);
+      background: #FAFAFA; resize: vertical; transition: border-color 0.2s;
     }
     .field textarea { min-height: 110px; }
     .field input:focus, .field textarea:focus { outline: none; border-color: var(--primary); background: #fff; }
-
     .color-row { display: flex; gap: 10px; flex-wrap: wrap; }
     .color-chip {
-      width: 34px; height: 34px; border-radius: 50%;
-      cursor: pointer;
-      border: 3px solid transparent;
-      transition: transform 0.15s, border-color 0.15s;
+      width: 34px; height: 34px; border-radius: 50%; cursor: pointer;
+      border: 3px solid transparent; transition: transform 0.15s, border-color 0.15s;
     }
     .color-chip:hover { transform: scale(1.15); }
     .color-chip.selected { border-color: var(--text); transform: scale(1.15); }
-
     .char-count { font-size: 0.75rem; color: var(--text-muted); text-align: right; margin-top: 4px; }
-
     .btn-post {
-      width: 100%; padding: 14px;
-      background: var(--primary);
-      color: #fff; border: none;
-      border-radius: 12px;
-      font-size: 1rem; font-weight: 700;
-      font-family: 'Zen Maru Gothic', sans-serif;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
-      margin-top: 0.5rem;
+      width: 100%; padding: 14px; background: var(--primary); color: #fff; border: none;
+      border-radius: 12px; font-size: 1rem; font-weight: 700;
+      font-family: 'Zen Maru Gothic', sans-serif; cursor: pointer;
+      transition: background 0.2s, transform 0.1s; margin-top: 0.5rem;
     }
     .btn-post:hover { background: var(--primary-dark); transform: translateY(-1px); }
     .btn-post:disabled { background: #ccc; cursor: not-allowed; transform: none; }
-
-    .toast {
-      position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(100px);
-      background: #2D2D2D; color: #fff;
-      padding: 12px 24px; border-radius: 999px;
-      font-size: 0.9rem; font-weight: 500;
-      transition: transform 0.3s ease;
-      z-index: 999;
-    }
-    .toast.show { transform: translateX(-50%) translateY(0); }
-
-    /* ── BOARD TAB ── */
-    .board-meta {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 1.25rem;
-    }
+    .board-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
     .board-count { font-size: 0.85rem; color: var(--text-muted); }
     .btn-refresh {
-      padding: 6px 14px; border-radius: 999px;
-      border: 1.5px solid var(--border);
-      background: var(--surface);
-      font-size: 0.82rem; font-weight: 700;
-      font-family: 'Zen Maru Gothic', sans-serif;
-      cursor: pointer; color: var(--text-muted);
-      transition: border-color 0.2s;
+      padding: 6px 14px; border-radius: 999px; border: 1.5px solid var(--border);
+      background: var(--surface); font-size: 0.82rem; font-weight: 700;
+      font-family: 'Zen Maru Gothic', sans-serif; cursor: pointer; color: var(--text-muted);
     }
     .btn-refresh:hover { border-color: var(--primary); color: var(--primary); }
-
-    .board-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-      gap: 14px;
-    }
+    .board-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 14px; }
     .sticky-note {
-      border-radius: 14px;
-      padding: 16px;
-      min-height: 140px;
-      display: flex; flex-direction: column;
-      justify-content: space-between;
-      word-break: break-word;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.1);
-      animation: pop-in 0.3s ease;
-      position: relative;
-      overflow: hidden;
+      border-radius: 14px; padding: 16px; min-height: 140px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      word-break: break-word; box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+      animation: pop-in 0.3s ease; position: relative; overflow: hidden;
     }
     .sticky-note::after {
-      content: '';
-      position: absolute; top: 0; right: 0;
-      width: 0; height: 0;
-      border-style: solid;
-      border-width: 0 20px 20px 0;
+      content: ''; position: absolute; top: 0; right: 0; width: 0; height: 0;
+      border-style: solid; border-width: 0 20px 20px 0;
       border-color: transparent rgba(0,0,0,0.08) transparent transparent;
     }
     @keyframes pop-in {
@@ -251,68 +86,72 @@
     .note-msg { font-size: 0.88rem; line-height: 1.65; flex: 1; }
     .note-name { font-size: 0.75rem; font-weight: 700; margin-top: 12px; opacity: 0.7; text-align: right; }
     .note-time { font-size: 0.68rem; opacity: 0.5; text-align: right; margin-top: 2px; }
-
-    .empty-board {
-      grid-column: 1 / -1;
-      text-align: center; padding: 4rem 2rem;
-      color: var(--text-muted);
+    .note-actions { display: flex; gap: 4px; justify-content: flex-end; margin-top: 8px; }
+    .note-btn {
+      padding: 3px 10px; border-radius: 999px; border: none; font-size: 0.72rem; font-weight: 700;
+      cursor: pointer; font-family: 'Zen Maru Gothic', sans-serif; opacity: 0.8; transition: opacity 0.15s;
     }
+    .note-btn:hover { opacity: 1; }
+    .note-btn-edit { background: rgba(0,0,0,0.12); }
+    .note-btn-delete { background: rgba(200,0,0,0.15); color: #800 !important; }
+    .empty-board { grid-column: 1/-1; text-align: center; padding: 4rem 2rem; color: var(--text-muted); }
     .empty-board .emoji { font-size: 3rem; margin-bottom: 1rem; }
-
-    /* ── QR TAB ── */
     .qr-card {
-      background: var(--surface);
-      border-radius: var(--radius);
-      padding: 2rem;
-      max-width: 400px;
-      margin: 0 auto;
-      box-shadow: var(--shadow);
-      text-align: center;
+      background: var(--surface); border-radius: var(--radius); padding: 2rem;
+      max-width: 400px; margin: 0 auto; box-shadow: var(--shadow); text-align: center;
     }
     .qr-card h2 { font-size: 1.1rem; margin-bottom: 0.5rem; }
     .qr-card p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem; line-height: 1.6; }
-    #qr-output {
-      background: #fff; display: inline-block;
-      padding: 16px; border-radius: 12px;
-      border: 1.5px solid var(--border);
-      margin-bottom: 1rem;
-    }
-    #qr-output img, #qr-output canvas { display: block; }
-    .qr-url {
-      background: #F5F5F5; border-radius: 10px;
-      padding: 10px 14px; font-size: 0.75rem;
-      color: var(--text-muted); word-break: break-all;
-      text-align: left; margin-top: 0.75rem;
-    }
+    #qr-output { background: #fff; display: inline-block; padding: 16px; border-radius: 12px; border: 1.5px solid var(--border); margin-bottom: 1rem; }
+    .qr-url { background: #F5F5F5; border-radius: 10px; padding: 10px 14px; font-size: 0.75rem; color: var(--text-muted); word-break: break-all; text-align: left; margin-top: 0.75rem; }
     .qr-input-row { display: flex; gap: 8px; margin-bottom: 1rem; }
-    .qr-input-row input {
-      flex: 1; padding: 10px 14px;
-      border: 1.5px solid var(--border); border-radius: 10px;
-      font-size: 0.85rem;
-      font-family: 'Zen Maru Gothic', sans-serif;
-    }
+    .qr-input-row input { flex: 1; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 10px; font-size: 0.85rem; font-family: 'Zen Maru Gothic', sans-serif; }
     .qr-input-row input:focus { outline: none; border-color: var(--primary); }
-    .btn-genqr {
-      padding: 10px 16px; border-radius: 10px;
-      background: var(--primary); color: #fff;
-      border: none; font-size: 0.85rem; font-weight: 700;
-      font-family: 'Zen Maru Gothic', sans-serif;
-      cursor: pointer; white-space: nowrap;
-    }
+    .btn-genqr { padding: 10px 16px; border-radius: 10px; background: var(--primary); color: #fff; border: none; font-size: 0.85rem; font-weight: 700; font-family: 'Zen Maru Gothic', sans-serif; cursor: pointer; }
     .btn-genqr:hover { background: var(--primary-dark); }
-
-    /* Loading */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.45);
+      display: flex; align-items: center; justify-content: center; z-index: 999; padding: 1rem;
+    }
+    .modal-overlay.hidden { display: none; }
+    .modal {
+      background: var(--surface); border-radius: 20px; padding: 1.75rem;
+      max-width: 440px; width: 100%; box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+    }
+    .modal h3 { font-size: 1.1rem; margin-bottom: 1.25rem; }
+    .modal .field { margin-bottom: 1rem; }
+    .modal .field label { display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; color: var(--text-muted); }
+    .modal .field textarea {
+      width: 100%; padding: 12px 16px; border: 1.5px solid var(--border); border-radius: 12px;
+      font-size: 0.95rem; font-family: 'Zen Maru Gothic', sans-serif; color: var(--text);
+      background: #FAFAFA; resize: vertical; min-height: 100px;
+    }
+    .modal .field textarea:focus { outline: none; border-color: var(--primary); background: #fff; }
+    .modal-color-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+    .modal-actions { display: flex; gap: 8px; margin-top: 1.25rem; }
+    .btn-modal-save {
+      flex: 1; padding: 12px; background: var(--primary); color: #fff; border: none;
+      border-radius: 10px; font-size: 0.95rem; font-weight: 700;
+      font-family: 'Zen Maru Gothic', sans-serif; cursor: pointer;
+    }
+    .btn-modal-save:hover { background: var(--primary-dark); }
+    .btn-modal-cancel {
+      flex: 1; padding: 12px; background: #F0EDEA; color: var(--text-muted); border: none;
+      border-radius: 10px; font-size: 0.95rem; font-weight: 700;
+      font-family: 'Zen Maru Gothic', sans-serif; cursor: pointer;
+    }
+    .toast {
+      position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(100px);
+      background: #2D2D2D; color: #fff; padding: 12px 24px; border-radius: 999px;
+      font-size: 0.9rem; font-weight: 500; transition: transform 0.3s ease; z-index: 9999;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
     .loading { text-align: center; padding: 3rem; color: var(--text-muted); font-size: 0.9rem; }
     .spinner {
-      width: 32px; height: 32px;
-      border: 3px solid var(--border);
-      border-top-color: var(--primary);
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-      margin: 0 auto 1rem;
+      width: 32px; height: 32px; border: 3px solid var(--border); border-top-color: var(--primary);
+      border-radius: 50%; animation: spin 0.7s linear infinite; margin: 0 auto 1rem;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
-
     @media (max-width: 600px) {
       .app-header { flex-direction: column; gap: 0.75rem; align-items: flex-start; }
       .tab-content { padding: 1rem; }
@@ -322,61 +161,11 @@
   </style>
 </head>
 <body>
-
-<!-- ══ SETUP SCREEN ══ -->
-<div id="setup-screen">
-  <div class="setup-card">
-    <h1>🎉 寄せ書きアプリ セットアップ</h1>
-    <p>Firebaseを使ってリアルタイムで寄せ書きを共有します。<br>最初に1回だけ設定が必要です。</p>
-
-    <div class="steps">
-      <div class="step">
-        <div class="step-content">
-          <strong>Firebase プロジェクトを作成</strong>
-          <span><a href="https://console.firebase.google.com/" target="_blank">console.firebase.google.com</a> を開き、「プロジェクトを作成」をクリック。プロジェクト名は何でもOK。</span>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-content">
-          <strong>Realtime Database を有効化</strong>
-          <span>左メニューの「Realtime Database」→「データベースを作成」→ロケーションはどこでも可 →「テストモードで開始」を選択。</span>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-content">
-          <strong>ウェブアプリを登録してキーを取得</strong>
-          <span>プロジェクトの設定（歯車アイコン）→「アプリを追加」→ウェブ（&lt;/&gt;）→ニックネームを入力して登録。表示される <code>firebaseConfig</code> の値を下にコピー。</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="input-group">
-      <label>API Key</label>
-      <input type="text" id="cfg-apiKey" placeholder="AIzaSy...">
-    </div>
-    <div class="input-group">
-      <label>Auth Domain</label>
-      <input type="text" id="cfg-authDomain" placeholder="your-project.firebaseapp.com">
-    </div>
-    <div class="input-group">
-      <label>Database URL</label>
-      <input type="text" id="cfg-dbUrl" placeholder="https://your-project-default-rtdb.firebaseio.com">
-    </div>
-    <div class="input-group">
-      <label>Project ID</label>
-      <input type="text" id="cfg-projectId" placeholder="your-project-id">
-    </div>
-    <div class="error-msg" id="setup-error">すべての項目を入力してください</div>
-    <button class="btn-start" onclick="startApp()">アプリを起動する →</button>
-  </div>
-</div>
-
-<!-- ══ MAIN APP ══ -->
 <div id="app">
   <header class="app-header">
     <div class="app-title">
       🎊 2025年 振り返り寄せ書き
-      <span id="header-sub">みんなでメッセージを書こう！</span>
+      <span>みんなでメッセージを書こう！</span>
     </div>
     <div class="tabs">
       <button class="tab-btn active" onclick="switchTab('post', this)">✏️ 書く</button>
@@ -385,7 +174,6 @@
     </div>
   </header>
 
-  <!-- POST -->
   <div class="tab-content active" id="tab-post">
     <div class="post-card">
       <h2>✏️ メッセージを書く</h2>
@@ -405,7 +193,6 @@
     </div>
   </div>
 
-  <!-- BOARD -->
   <div class="tab-content" id="tab-board">
     <div class="board-meta">
       <div class="board-count" id="board-count">読み込み中...</div>
@@ -416,13 +203,12 @@
     </div>
   </div>
 
-  <!-- QR -->
   <div class="tab-content" id="tab-qr">
     <div class="qr-card">
       <h2>📱 QRコードを共有</h2>
-      <p>このページのURLを入力してQRコードを生成してください。<br>会場のスクリーンに映したり印刷して配布できます。</p>
+      <p>このページのURLを入力してQRコードを生成してください。</p>
       <div class="qr-input-row">
-        <input type="text" id="qr-url-input" placeholder="https://あなたのGitHub PagesのURL">
+        <input type="text" id="qr-url-input" placeholder="https://naomaru-tt.github.io/yosegaki/">
         <button class="btn-genqr" onclick="genQR()">生成</button>
       </div>
       <div id="qr-output"></div>
@@ -431,11 +217,36 @@
   </div>
 </div>
 
+<div class="modal-overlay hidden" id="edit-modal">
+  <div class="modal">
+    <h3>✏️ メッセージを編集</h3>
+    <div class="field">
+      <label>メッセージ</label>
+      <textarea id="edit-msg" maxlength="120"></textarea>
+    </div>
+    <div class="field">
+      <label>付箋の色</label>
+      <div class="modal-color-row" id="edit-color-row"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-modal-cancel" onclick="closeModal()">キャンセル</button>
+      <button class="btn-modal-save" onclick="saveEdit()">保存する</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script type="module">
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
-  import { getDatabase, ref, push, onValue, query, orderByChild } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js';
+  import { getDatabase, ref, push, onValue, query, orderByChild, update, remove } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js';
+
+  const FIREBASE_CONFIG = {
+    apiKey: "AIzaSyDe1f405ZFp0Z6B9pElfwttfnIigtUres4",
+    authDomain: "yosegaki-2f7e6.firebaseapp.com",
+    databaseURL: "https://yosegaki-2f7e6-default-rtdb.firebaseio.com",
+    projectId: "yosegaki-2f7e6"
+  };
 
   const COLORS = [
     { bg: '#FFF176', text: '#5C4B00', name: '黄色' },
@@ -450,96 +261,85 @@
 
   let db = null;
   let selectedColor = 0;
+  let editingKey = null;
+  let editSelectedColor = 0;
 
-  // ── Setup ──
-  // Firebase設定を直接埋め込み（セットアップ画面をスキップ）
-  const FIREBASE_CONFIG = {
-    apiKey: "AIzaSyDe1f405ZFp0Z6B9pElfwttfnIigtUres4",
-    authDomain: "yosegaki-2f7e6.firebaseapp.com",
-    databaseURL: "https://yosegaki-2f7e6-default-rtdb.firebaseio.com",
-    projectId: "yosegaki-2f7e6"
-  };
-
-  function autoStart() {
-    try {
-      const app = initializeApp(FIREBASE_CONFIG);
-      db = getDatabase(app);
-      document.getElementById('setup-screen').style.display = 'none';
-      document.getElementById('app').style.display = 'block';
-      initColors();
-      loadMessages();
-    } catch(e) {
-      console.error(e);
-    }
+  function getMyIds() {
+    try { return JSON.parse(localStorage.getItem('yosegaki_my_ids') || '[]'); } catch { return []; }
   }
-  autoStart();
+  function addMyId(id) {
+    const ids = getMyIds(); ids.push(id);
+    localStorage.setItem('yosegaki_my_ids', JSON.stringify(ids));
+  }
+  function isMyMessage(id) { return getMyIds().includes(id); }
+  function removeMyId(id) {
+    localStorage.setItem('yosegaki_my_ids', JSON.stringify(getMyIds().filter(x => x !== id)));
+  }
 
-  window.startApp = function() {
-    // 手動起動用（フォールバック）
-    autoStart();
-  };
+  (function autoStart() {
+    const app = initializeApp(FIREBASE_CONFIG);
+    db = getDatabase(app);
+    initColors();
+    loadMessages();
+  })();
 
-  // ── Colors ──
   function initColors() {
     const row = document.getElementById('color-row');
     row.innerHTML = '';
     COLORS.forEach((c, i) => {
       const el = document.createElement('div');
       el.className = 'color-chip' + (i === 0 ? ' selected' : '');
-      el.style.background = c.bg;
-      el.title = c.name;
+      el.style.background = c.bg; el.title = c.name;
       el.onclick = () => {
-        document.querySelectorAll('.color-chip').forEach(x => x.classList.remove('selected'));
-        el.classList.add('selected');
-        selectedColor = i;
+        row.querySelectorAll('.color-chip').forEach(x => x.classList.remove('selected'));
+        el.classList.add('selected'); selectedColor = i;
       };
       row.appendChild(el);
     });
   }
 
-  // ── Char Count ──
+  function initEditColors(current) {
+    editSelectedColor = current;
+    const row = document.getElementById('edit-color-row');
+    row.innerHTML = '';
+    COLORS.forEach((c, i) => {
+      const el = document.createElement('div');
+      el.className = 'color-chip' + (i === current ? ' selected' : '');
+      el.style.background = c.bg; el.title = c.name;
+      el.onclick = () => {
+        row.querySelectorAll('.color-chip').forEach(x => x.classList.remove('selected'));
+        el.classList.add('selected'); editSelectedColor = i;
+      };
+      row.appendChild(el);
+    });
+  }
+
   window.updateCharCount = function() {
-    const len = document.getElementById('inp-msg').value.length;
-    document.getElementById('char-count').textContent = len + ' / 120';
+    document.getElementById('char-count').textContent = document.getElementById('inp-msg').value.length + ' / 120';
   };
 
-  // ── Post ──
   window.postMessage = async function() {
     const name = document.getElementById('inp-name').value.trim();
     const msg = document.getElementById('inp-msg').value.trim();
     if (!name || !msg) { showToast('名前とメッセージを入力してください'); return; }
-    if (!db) return;
-
     const btn = document.getElementById('btn-post');
-    btn.disabled = true;
-    btn.textContent = '送信中…';
-
+    btn.disabled = true; btn.textContent = '送信中…';
     try {
-      await push(ref(db, 'messages'), {
-        name, msg,
-        colorIdx: selectedColor,
-        ts: Date.now()
-      });
+      const newRef = await push(ref(db, 'messages'), { name, msg, colorIdx: selectedColor, ts: Date.now() });
+      addMyId(newRef.key);
       document.getElementById('inp-name').value = '';
       document.getElementById('inp-msg').value = '';
       document.getElementById('char-count').textContent = '0 / 120';
       showToast('✓ メッセージを送りました！');
-    } catch(e) {
-      showToast('送信に失敗しました。Firebaseの設定を確認してください。');
-    } finally {
-      btn.disabled = false;
-      btn.textContent = '送信する 🎉';
-    }
+    } catch(e) { showToast('送信に失敗しました。'); }
+    finally { btn.disabled = false; btn.textContent = '送信する 🎉'; }
   };
 
-  // ── Load ──
   window.loadMessages = function() {
     if (!db) return;
     const grid = document.getElementById('board-grid');
     grid.innerHTML = '<div class="loading"><div class="spinner"></div>読み込み中…</div>';
-
-    const msgsRef = query(ref(db, 'messages'), orderByChild('ts'));
-    onValue(msgsRef, (snap) => {
+    onValue(query(ref(db, 'messages'), orderByChild('ts')), (snap) => {
       const data = snap.val();
       grid.innerHTML = '';
       if (!data) {
@@ -547,27 +347,65 @@
         document.getElementById('board-count').textContent = '0件のメッセージ';
         return;
       }
-      const msgs = Object.values(data).sort((a, b) => a.ts - b.ts);
-      document.getElementById('board-count').textContent = msgs.length + '件のメッセージ';
-      msgs.forEach(m => {
+      const entries = Object.entries(data).sort((a, b) => a[1].ts - b[1].ts);
+      document.getElementById('board-count').textContent = entries.length + '件のメッセージ';
+      entries.forEach(([key, m]) => {
         const c = COLORS[m.colorIdx] || COLORS[0];
         const el = document.createElement('div');
         el.className = 'sticky-note';
         el.style.background = c.bg;
-        const date = new Date(m.ts);
-        const timeStr = date.getHours() + ':' + String(date.getMinutes()).padStart(2, '0');
+        const d = new Date(m.ts);
+        const timeStr = d.getHours() + ':' + String(d.getMinutes()).padStart(2, '0');
+        const isMine = isMyMessage(key);
         el.innerHTML = `
           <div class="note-msg" style="color:${c.text}">${escHtml(m.msg)}</div>
           <div>
             <div class="note-name" style="color:${c.text}">— ${escHtml(m.name)}</div>
             <div class="note-time" style="color:${c.text}">${timeStr}</div>
+            ${isMine ? `<div class="note-actions">
+              <button class="note-btn note-btn-edit" style="color:${c.text}">編集</button>
+              <button class="note-btn note-btn-delete">削除</button>
+            </div>` : ''}
           </div>`;
+        if (isMine) {
+          el.querySelector('.note-btn-edit').addEventListener('click', () => openEdit(key, m.msg, m.colorIdx || 0));
+          el.querySelector('.note-btn-delete').addEventListener('click', () => deleteMsg(key));
+        }
         grid.appendChild(el);
       });
     }, { onlyOnce: true });
   };
 
-  // ── QR ──
+  window.openEdit = function(key, msg, colorIdx) {
+    editingKey = key;
+    document.getElementById('edit-msg').value = msg;
+    initEditColors(colorIdx);
+    document.getElementById('edit-modal').classList.remove('hidden');
+  };
+
+  window.closeModal = function() {
+    document.getElementById('edit-modal').classList.add('hidden');
+    editingKey = null;
+  };
+
+  window.saveEdit = async function() {
+    if (!editingKey) return;
+    const msg = document.getElementById('edit-msg').value.trim();
+    if (!msg) { showToast('メッセージを入力してください'); return; }
+    try {
+      await update(ref(db, 'messages/' + editingKey), { msg, colorIdx: editSelectedColor });
+      closeModal(); showToast('✓ 更新しました！'); loadMessages();
+    } catch(e) { showToast('更新に失敗しました。'); }
+  };
+
+  window.deleteMsg = async function(key) {
+    if (!confirm('このメッセージを削除しますか？')) return;
+    try {
+      await remove(ref(db, 'messages/' + key));
+      removeMyId(key); showToast('削除しました'); loadMessages();
+    } catch(e) { showToast('削除に失敗しました。'); }
+  };
+
   window.genQR = function() {
     const url = document.getElementById('qr-url-input').value.trim();
     if (!url) { showToast('URLを入力してください'); return; }
@@ -575,14 +413,11 @@
     out.innerHTML = '';
     const img = document.createElement('img');
     img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&ecc=L&data=' + encodeURIComponent(url);
-    img.width = 200; img.height = 200;
-    out.appendChild(img);
+    img.width = 200; img.height = 200; out.appendChild(img);
     const disp = document.getElementById('qr-url-display');
-    disp.textContent = url;
-    disp.style.display = 'block';
+    disp.textContent = url; disp.style.display = 'block';
   };
 
-  // ── Tabs ──
   window.switchTab = function(name, btn) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
@@ -591,11 +426,9 @@
     if (name === 'board') loadMessages();
   };
 
-  // ── Toast ──
   function showToast(msg) {
     const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.classList.add('show');
+    t.textContent = msg; t.classList.add('show');
     setTimeout(() => t.classList.remove('show'), 2800);
   }
 
